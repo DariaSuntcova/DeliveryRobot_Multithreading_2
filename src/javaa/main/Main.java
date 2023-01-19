@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static final Map<Integer, Integer> sizeToFreq = new HashMap<>();
+    public static final char R = 'R';
 
     public static void main(String[] args) {
 
@@ -16,7 +17,7 @@ public class Main {
                 char[] chars = route.toCharArray();
                 int countR = 0;
                 for (char c : chars) {
-                    if (c == 'R') {
+                    if (c == R) {
                         countR++;
                     }
                 }
