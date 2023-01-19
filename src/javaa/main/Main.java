@@ -9,10 +9,12 @@ public class Main {
     public static final Map<Integer, Integer> sizeToFreq = new HashMap<>();
     public static final char R = 'R';
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        ArrayList<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
-            new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 String route = DeliveryRobot.generateRoute("RLRFR", 100);
                 char[] chars = route.toCharArray();
                 int countR = 0;
@@ -28,7 +30,13 @@ public class Main {
                         sizeToFreq.put(countR, 1);
                     }
                 }
-            }).start();
+            });
+            thread.start();
+            threads.add(thread);
+        }
+
+        for (Thread thread : threads) {
+            thread.join();
         }
 
         LinkedHashMap<Integer, Integer> newMap = sizeToFreq.entrySet().stream()
